@@ -45,53 +45,8 @@ class md_home extends CI_Controller {
 		
 		$this->load->view('vw_home_5');
 	}
-	function ProsesLogin() {
-	if (strpos($this->input->post('txtUsername'),'admin') !== false) {
-    $admin='1';
-	}
-	else {
-    $admin='0';		
-		}
 
-		if(($this->input->post('id_loket') =='') && ( $this->input->post('counter') =='')){
-			$this->ProsesLogout();
-		}
-					
-		if(($this->input->post('id_loket') !='') && ( $this->input->post('counter') =='1') && ($admin == 0)){
-		// Proses Login
-		$vPostLoginName=$this->input->post('txtUsername');
-		$vPostLoginPass=$this->input->post('txtPassword');
-		$vAuth1=$this->mo_home->Auth1($vPostLoginName,$vPostLoginPass,$this->input->post('id_loket'));
-		if($vAuth1) {
-			$vSessId = $vAuth1->logId;
-			$vSessName = $vAuth1->logName;
-			$vSessPass = $vAuth1->logPass;
-			$vSessEmpId = $vAuth1->EmpId;			
-			$vSessEmpName = $vAuth1->EmpName;
-			$vSessBranchId = $vAuth1->BranchId;			
-			$vBranchStatus = $vAuth1->BranchStatus;
-			$vRoleDataLimit = $vAuth1->RoleDatalimit;
-			$vRoleCategory = $vAuth1->RoleCategory;
-			$vSessBranchCode = $vAuth1->BranchCode;			
-			$vIdGroupLayanan = $vAuth1->id_group_layanan;			
-			$vLoket = $this->input->post('id_loket');			
-			$vRoleCode = $vAuth1->f_role_code;			
-			$vStatusRegVisitor = 	$vAuth1->status_reg;		
-			$vAuth2 = $this->mo_home->Auth2($vSessId);
-			$vSessSegments = implode(",",$vAuth2);
-			
-			$vAuth3 = $this->mo_home->Auth3($vSessId);
-			$vSessRoles = implode(",",$vAuth3);
-			$vSessStatus = TRUE;
-			$vLoginArray=array('sId'=>$vSessId,'sName'=>$vSessName,'sPassword'=>$vSessPass,'sEmpId'=>$vSessEmpId,'sEmpName'=>$vSessEmpName,'sBranchId'=>$vSessBranchId,'sBranchCode'=>$vSessBranchCode,'sSegments'=>$vSessSegments,'sRoles'=>$vSessRoles,'sStatus'=>$vSessStatus,'sBranchStatus'=>$vBranchStatus,'sRoleDataLimit'=>$vRoleDataLimit,'sRoleCategory'=>$vRoleCategory,'sIdGroupLayanan'=>$vIdGroupLayanan,'sIdLoket'=>$vLoket,'sRoleCode'=>$vRoleCode,'sRegVisitor'=>$vStatusRegVisitor);
-			$this->session->set_userdata($vLoginArray);
-			redirect(base_url(),'refresh');
-		} else {
-			$this->ProsesLogout();
-		}
-		}
-		
-		if(($this->input->post('id_loket') =='') && ( $this->input->post('counter') =='0') && ($admin == 1)){
+	function ProsesLogin() {
 		// Proses Login
 		$vPostLoginName=$this->input->post('txtUsername');
 		$vPostLoginPass=$this->input->post('txtPassword');
@@ -123,35 +78,7 @@ class md_home extends CI_Controller {
 		} else {
 			$this->ProsesLogout();
 		}
-		}
-		
-		else{
-			$this->ProsesLogout();			
-			}
 	}
-	/*
-	function ProsesLogin() {
-		// Proses Login
-		$vPostLoginName=$this->input->post('txtUsername');
-		$vPostLoginPass=$this->input->post('txtPassword');
-		$vArrayAuthId=$this->mo_home->LoginAuth1($vPostLoginName,$vPostLoginPass);
-		$vAuthId=$vArrayAuthId->f_user_id;
-		$_SESSION['userNm']  	= $vArrayAuthId->f_user_login; 
-		$_SESSION['Group_Code'] = $vArrayAuthId->f_user_type_code;    
-		$_SESSION['password'] 	= $vArrayAuthId->f_user_password; 
-		if($vAuthId) {
-			$vArrayAuthAs=$this->mo_home->LoginAuth2($vAuthId);
-			$vAuthAs=$vArrayAuthAs->f_role_id;
-			$vLoginArray=array('sId'=>$vAuthId,'sName'=>$vPostLoginName,'sAs'=>$vAuthAs,'sStatus'=>TRUE);
-			$this->session->set_userdata($vLoginArray);
-			redirect(base_url(),'refresh');
-		} else {
-			$this->ProsesLogout();
-		}
-	}
-	*/
-
-
 
 	function ProsesLogout() {
 
