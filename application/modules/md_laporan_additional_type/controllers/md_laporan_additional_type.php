@@ -19,6 +19,7 @@ class md_laporan_additional_type extends MX_Controller {
 		$vStartKeyword=$this->input->post('StartKeyword');
 		$vFinishKeyword=$this->input->post('FinishKeyword');
 		$vAdditionalTypeKeyword=$this->input->post('AdditionalTypeKeyword');
+		$vAdditionalTypeNoAntrian=$this->input->post('AdditionalTypeNoAntrian');
 		$vSort=$this->input->post('sort');
 		$vOrder=$this->input->post('order');
 		if(!$vPage) {
@@ -37,16 +38,16 @@ class md_laporan_additional_type extends MX_Controller {
 		}
 		$vOffset=($vPage-1)*$vRows;
 		$vResult=array();
-		$vRs=$this->mo_laporan_additional_type->fnAdditionalTypeCount($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword);
+		$vRs=$this->mo_laporan_additional_type->fnAdditionalTypeCount($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,$vAdditionalTypeNoAntrian);
 		$vResult["total"]=$vRs->selectCount;
-		$vResult["rows"]=$this->mo_laporan_additional_type->fnAdditionalTypeData($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,$vOffset,$vRows,$vSort,$vOrder);		
+		$vResult["rows"]=$this->mo_laporan_additional_type->fnAdditionalTypeData($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,$vAdditionalTypeNoAntrian,$vOffset,$vRows,$vSort,$vOrder);		
 		echo json_encode($vResult);
 	}	
 
 	
 //===========Print Report================================================
 
-	function fnAdditionalTypeDataPrint($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,$excel=true){
+	function fnAdditionalTypeDataPrint($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,$vAdditionalTypeNoAntrian,$excel=true){
 
 			$pdf_filename = tempnam(sys_get_temp_dir(), "Data_Antrian_");
 		   $pdf_file= "Data Additional Type";
@@ -56,7 +57,7 @@ class md_laporan_additional_type extends MX_Controller {
 		
 		   $data_header=array('title'=>'PDF',);   
 		   
-         $data_master['data_master'] = $this->mo_laporan_additional_type->fnAdditionalTypeDataPrint($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword);
+         $data_master['data_master'] = $this->mo_laporan_additional_type->fnAdditionalTypeDataPrint($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,$vAdditionalTypeNoAntrian);
          $data_master['data_company'] = $this->mo_laporan_additional_type->getDataCompany();
 
 		   if($excel) {
@@ -70,8 +71,8 @@ class md_laporan_additional_type extends MX_Controller {
          echo $output;	
    }
 
-   function fnAdditionalTypeDataPrintText($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword){
-		$this->fnAdditionalTypeDataPrint($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,false);
+   function fnAdditionalTypeDataPrintText($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,$vAdditionalTypeNoAntrian){
+		$this->fnAdditionalTypeDataPrint($vStartKeyword,$vFinishKeyword,$vAdditionalTypeKeyword,$vAdditionalTypeNoAntrian,false);
    }	
       
 }

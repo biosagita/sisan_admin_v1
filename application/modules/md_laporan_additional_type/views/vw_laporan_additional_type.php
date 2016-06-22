@@ -4,19 +4,16 @@
 
 					<table id="007_dtglaporan" class="easyui-datagrid" data-options="title:'',url:'<?php echo base_url(); ?>index.php/md_laporan_additional_type/fnAdditionalTypeData/',toolbar:'#007_tlblaporan',rownumbers:true,border:false,singleSelect:true,striped:true,fit:true,pagination:true,pageSize:20,pageList:[20,50,100,500]">
 					<thead>
-						<tr>
-
-
-  					           
+						<tr>   
 										   <th data-options="field:'adty_id',title:'<b>Id</b>',hidden:true,width:40,sortable:true" halign="left"></th>
+
+										   <th data-options="field:'no_antrian',title:'<b>No Antrian</b>',align:'left',width:100,sortable:true" halign="left"></th>
 
 										   <th data-options="field:'adty_type_info',title:'<b>Info</b>',align:'left',width:510,sortable:true" halign="left"></th>
 
 										   <th data-options="field:'adty_note',title:'<b>Note</b>',width:210,sortable:false" halign="left"></th>
 								           
 										   <th data-options="field:'adty_entrydate',title:'<b>Entry Date</b>',width:110,sortable:true" halign="left"></th>
-
-					           	
 					
 					   </tr>
 					</thead>
@@ -31,6 +28,11 @@
 								<div class="frmItem">
 									<div style="display:inline-block;width:100px;">Keyword</div>
 									<input style="display:inline-block;" id="007additionalTypeKeyword" name="007additionalTypeKeyword" ></input>
+								</div>
+								<br>
+								<div class="frmItem">
+									<div style="display:inline-block;width:100px;">No Antrian</div>
+									<input style="display:inline-block;" id="007additionalTypeNoAntrian" name="007additionalTypeNoAntrian" ></input>
 								</div>
 								<br>
 								<div class="frmItem">
@@ -85,27 +87,30 @@ function fnPreview(){
 		StartKeyword: $('#007startdate').datebox('getValue'),
 		FinishKeyword: $('#007finishdate').datebox('getValue'),
 		AdditionalTypeKeyword: $('#007additionalTypeKeyword').val(),
+		AdditionalTypeNoAntrian: $('#007additionalTypeNoAntrian').val(),
 	});
 }
 function fnPrint_transaksi( title,w,h) {
  		var startKeyword = $('#007startdate').datebox('getValue') || 'all';
 		var finishKeyword = $('#007finishdate').datebox('getValue') || 'all';
-		var AdditionalTypeKeyword = $('#007additionalTypeKeyword').val();
+		var AdditionalTypeKeyword = $('#007additionalTypeKeyword').val() || 'all';
+		var AdditionalTypeNoAntrian = $('#007additionalTypeNoAntrian').val() || 'all';
  
 			var left = (screen.width/2)-(w/2);
 			var top = (screen.height/2)-(h/2);
-			var targetWin = window.open ('index.php/md_laporan_additional_type/fnAdditionalTypeDataPrint/'+startKeyword+'/'+finishKeyword+'/'+AdditionalTypeKeyword, title, 'toolbar=yes, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
+			var targetWin = window.open ('index.php/md_laporan_additional_type/fnAdditionalTypeDataPrint/'+startKeyword+'/'+finishKeyword+'/'+AdditionalTypeKeyword+'/'+AdditionalTypeNoAntrian, title, 'toolbar=yes, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
 		
 }
 
 function fnPrint_transaksi_text( title,w,h) {
  		var startKeyword = $('#007startdate').datebox('getValue') || 'all';
 		var finishKeyword = $('#007finishdate').datebox('getValue') || 'all';
-		var AdditionalTypeKeyword = $('#007additionalTypeKeyword').val();
+		var AdditionalTypeKeyword = $('#007additionalTypeKeyword').val() || 'all';
+		var AdditionalTypeNoAntrian = $('#007additionalTypeNoAntrian').val() || 'all';
  
 			var left = (screen.width/2)-(w/2);
 			var top = (screen.height/2)-(h/2);
-			var targetWin = window.open ('index.php/md_laporan_additional_type/fnAdditionalTypeDataPrintText/'+startKeyword+'/'+finishKeyword+'/'+AdditionalTypeKeyword, title, 'toolbar=yes, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
+			var targetWin = window.open ('index.php/md_laporan_additional_type/fnAdditionalTypeDataPrintText/'+startKeyword+'/'+finishKeyword+'/'+AdditionalTypeKeyword+'/'+AdditionalTypeNoAntrian, title, 'toolbar=yes, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no, width='+w+', height='+h+', top='+top+', left='+left);
 		
 }
 </script>
